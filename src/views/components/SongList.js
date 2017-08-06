@@ -47,23 +47,8 @@ export default class SongList extends React.Component{
   render() {
     return (
         <div>
-            <table>
-                {this.state.data.map((item, idx) => (
-                    <tr key={idx}>
-                        <th>{item.id}</th>
-                        <th>{item.username}</th>
-                        <th>{item.songName}</th>
-                        <th>
-                            <button icon="bookmark" label="Contribute" raised primary />
-                        </th>
-                        <th>
-                            <button icon="play_arrow" floating accent mini />
-                        </th>
-                    </tr>
-                ))}
-            </table>
-        
-            <SongTable/>
+            <SongTable
+                data={this.state.data}/>
 
             <AddSongModal 
                 isOpen={this.state.modalIsOpen}
