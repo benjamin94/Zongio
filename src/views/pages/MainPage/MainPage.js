@@ -47,14 +47,12 @@ export default class MainPage extends React.Component{
 
         //Modal State
         modalIsOpen: false,
-        modalId: null,
         modalUsername: null,
         modalSongName: null,
 
     };
 
     //Modal Handlers
-    this.handleChangeId = this.handleChangeId.bind(this);
     this.handleChangeUsername = this.handleChangeUsername.bind(this);
     this.handleChangeSongName = this.handleChangeSongName.bind(this);
     this.handleModalCancel = this.handleModalCancel.bind(this);
@@ -90,16 +88,11 @@ export default class MainPage extends React.Component{
                 onConfirm={this.handleModalConfirm}
                 />
 
-            <a className="button is-primary is-outlined" onClick={() => this.dupa()}>Click Me</a>
+            <a className="button is-primary is-outlined" onClick={() => this.modalOpen()}>Click Me</a>
 
             </div>
         );
     }
-
-
-  handleChangeId(id) {
-      this.setState({modalId: id});
-  }
 
   handleChangeUsername(username) {
       this.setState({modalUsername: username});
@@ -137,7 +130,7 @@ export default class MainPage extends React.Component{
       this.modalReset();
   }
 
-  dupa() {
+  modalOpen() {
       this.setState(
           {
               modalIsOpen: !this.state.modalIsOpen,
