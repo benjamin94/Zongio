@@ -1,9 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import {
-    BrowserRouter as Router ,
-    Route,
-    Link, } from 'react-router-dom';
 
 export default class Contribute extends React.Component{
 
@@ -22,8 +17,9 @@ export default class Contribute extends React.Component{
         return(
             <div>
                 <h1>the name of the song is: {song.songName}</h1>
+                <h2>artist: {song.artist}</h2>
                 <h2>made by user: {song.username}</h2>
-                <h3></h3>
+
             </div>
         );
 

@@ -21,7 +21,7 @@ const App = () => (
         <div className="credits has-text-centered has-text-white">
             &copy;2017 Brain Leader Company Ltd. All rights reserved.
         </div>
-
+        
     </div>
 );
 

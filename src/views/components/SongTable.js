@@ -1,17 +1,11 @@
 import React from "react";
-import PropTypes from "prop-types";
-import {Link} from 'react-router-dom';
-import { browserHistory } from 'react-router'
 
 import 'bulma/css/bulma.css';
 
 export default class SongTable extends React.Component {
 
     goToContribute(song) {
-        var {id: a,username} = song;
-        //const songId = {song.id};
-        this.props.history.push(`/contribute/${a}`, {song});    
-        
+        this.props.history.push(`/contribute/${song.id}`, {song});    
       }
 
     renderTableBody(data) {
@@ -19,7 +13,8 @@ export default class SongTable extends React.Component {
             return (
                 <tr key={index} data-item={song} onClick={() => this.goToContribute(song)}>
                     <th data-title="Index">{index}</th>
-                    <td data-title="Username">{song.username}</td>
+                    <td data-title="Creator">{song.username}</td>
+                    <td data-title="Artist">{song.artist}</td>
                     <td data-title="SongName">{song.songName}</td>
                     <td>
                         <span className="icon">
@@ -40,12 +35,13 @@ export default class SongTable extends React.Component {
                     <thead>
                         <tr>
                             <th><abbr title="Id">Id</abbr></th>
-                            <th><abbr title="Username">Username</abbr></th>
+                            <th><abbr title="Creator">Creator</abbr></th>
+                            <th><abbr title="Artist">Artist</abbr></th>
                             <th><abbr title="SongName">Song Name</abbr></th>
                         </tr>
                     </thead>
                     <tbody>
-                        {this.renderTableBody(this.props.data)}
+                        {this.renderTableBody(data)}
                     </tbody>
                 </table>
             </div>

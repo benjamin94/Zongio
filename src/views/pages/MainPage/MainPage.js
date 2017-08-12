@@ -1,9 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import {
-    BrowserRouter as Router ,
-    Route,
-    Link, } from 'react-router-dom';
 
 import AddSongModal from "../../components/AddSongModal"
 import SongTable from "../../components/SongTable"
@@ -15,31 +10,37 @@ export default class MainPage extends React.Component{
     super(props);
 
     this.state = {
-        //Component State
+
+        //Main State
         data: [
             {
                 id: 0,
                 username: "Bigkis",
-                songName: "Despacito"
+                artist: "Luis Fonsi",
+                songName: "Despacito",
             },
                         {
                 id: 1,
                 username: "Episage",
+                artist: "Queen",                
                 songName: "We Will Rock You"
             },            
             {
                 id: 2,
                 username: "Shakira",
+                artist: "Shakira",                
                 songName: "Hips Don't Lie"
             },
             {
                 id: 3,
-                username: "Usher",
+                username: "PositoMori",
+                artist: "Usher",                
                 songName: "Yeah!"
             },
             {
                 id: 4,
-                username: "Bruno Mars",
+                username: "Kiki",
+                artist: "Bruno Mars",                               
                 songName: "Grenade"
             },
         ],
@@ -47,6 +48,7 @@ export default class MainPage extends React.Component{
         //Modal State
         modalIsOpen: false,
         modalUsername: null,
+        modalArtist: null,
         modalSongName: null,
         
     };
@@ -54,10 +56,11 @@ export default class MainPage extends React.Component{
     //Modal Handlers
     this.handleChangeUsername = this.handleChangeUsername.bind(this);
     this.handleChangeSongName = this.handleChangeSongName.bind(this);
+    this.handleChangeArtist = this.handleChangeArtist.bind(this);    
     this.handleModalCancel = this.handleModalCancel.bind(this);
     this.handleModalConfirm = this.handleModalConfirm.bind(this); 
     this.modalReset = this.modalReset.bind(this);
-
+    
   }
 
     render() {
@@ -76,9 +79,11 @@ export default class MainPage extends React.Component{
                 onChangeId={this.handleChangeId}
                 onChangeUsername={this.handleChangeUsername}
                 onChangeSongName={this.handleChangeSongName}
+                onChangeArtist={this.handleChangeArtist}
                 id={this.state.modalId}
                 username={this.state.modalUsername}
                 songName={this.state.modalSongName}
+                artist={this.state.modalArtist}
                 onCancel={this.handleModalCancel}
                 onConfirm={this.handleModalConfirm}
                 />
@@ -95,6 +100,10 @@ export default class MainPage extends React.Component{
 
   handleChangeSongName(songName) {
       this.setState({modalSongName: songName});
+  }
+
+  handleChangeArtist(artist) {
+    this.setState({modalArtist: artist});
   }
 
   handleModalCancel() {

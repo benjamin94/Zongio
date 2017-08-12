@@ -1,4 +1,4 @@
-var dummyData = [
+const dummyData = [
     {
         id: 0,
         username: "test",
