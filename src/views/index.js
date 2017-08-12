@@ -19,7 +19,7 @@ const App = () => (
         { routes.map((route) => <Route key={route.path} { ...route } />) }
 
         <div className="credits has-text-centered has-text-white">
-            &copy;2017 Zongio Pvt. Ltd. All rights reserved.
+            &copy;2017 Brain Leader Company Ltd. All rights reserved.
         </div>
 
     </div>

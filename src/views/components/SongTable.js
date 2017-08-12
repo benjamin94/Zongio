@@ -48,7 +48,6 @@ export default class SongTable extends React.Component {
                         {this.renderTableBody(this.props.data)}
                     </tbody>
                 </table>
-                <Link to='/contribute/69'>Que pex hermano</Link>
             </div>
         );
     }

@@ -11,25 +11,11 @@ const routes = [
         exact: true
     },
     {
-        path: "/home",
-        component: Home,
-        exact: true
-    },
-    {
-        path: "/editsong",
-        component: EditSong,
-        exact: true
-    },
-    {
         path: "/contribute/:id?",
         component: Contribute,
         exact: true
     },
-    {
-        path: "/about",
-        component: About,
-        exact: true
-    },
+
 ];
 
 export default routes;

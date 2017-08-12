@@ -17,21 +17,10 @@ class NavBar extends React.Component{
             <div>
                 <nav className="nav has-shadow">
                     <div className="nav-left">
-                        <NavLink className="nav-item" to="/Home">
-                            helloo
+                        <NavLink className="nav-item" to="/">
+                            I'm so cool
                         </NavLink>
                     </div>
-                    <NavLink className="nav-item is-hidden-tablet" to="/search">
-                        <span className="icon">ghj
-                            <i className="fa fa-search">joy</i>
-                        </span>
-                    </NavLink>
-                    <NavLink className="nav-item is-hidden-tablet" to="/chat">
-                        <span className="icon">
-                            <i className="fa fa-comments"></i>
-                        </span>
-                    </NavLink>
-
                 </nav>
             </div>
         );

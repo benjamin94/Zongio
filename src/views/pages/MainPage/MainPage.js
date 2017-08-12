@@ -65,12 +65,6 @@ export default class MainPage extends React.Component{
             <div>
                 <h1>Look for your fav song!</h1>
                 <p>if its not there , be the one who creates it</p>
-                <button
-                    icon="add"
-                    label="Add a song"
-                    flat
-                    primary
-                />
 
             <SongTable
                 data={this.state.data}
