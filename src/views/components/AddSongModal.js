@@ -6,10 +6,7 @@ class AddSongModal extends React.Component {
         super(props);
 
         //methodes declaration here
-        this.handleUsernameChanged = this.handleUsernameChanged.bind(this);
-        this.handleSongNameChanged = this.handleSongNameChanged.bind(this);
-        this.handleArtistChanged = this.handleArtistChanged.bind(this);        
-
+        this.handleDataChange = this.handleDataChange.bind(this);
     }
 
     render(){
@@ -24,9 +21,9 @@ class AddSongModal extends React.Component {
             < div className="modal is-active" >
                 <div className="modal-background"></div>
                 <div className="modal-content">
-                    <input className="input" type="text" name="name" value={this.props.username} placeholder="Your Username" onChange={this.handleUsernameChanged}/>
-                    <input className="input" type="text" name="name" value={this.props.artist} placeholder="The Original Artist" onChange={this.handleArtistChanged}/>
-                    <input className="input" type="text" name="name" value={this.props.songName} placeholder="Your Awesome Song Name" onChange={this.handleSongNameChanged}/>
+                    <input className="input" type="text" name="username" value={this.props.username} placeholder="Your Username"          onChange={this.handleDataChange}/>
+                    <input className="input" type="text" name="artist"   value={this.props.artist}   placeholder="The Original Artist"    onChange={this.handleDataChange}/>
+                    <input className="input" type="text" name="songName" value={this.props.songName} placeholder="Your Awesome Song Name" onChange={this.handleDataChange}/>
                     <a className="button" onClick={this.props.onConfirm}>Click Me</a>
                 </div>
                 <button className="modal-close is-large" onClick={this.props.onCancel}></button>
@@ -34,19 +31,18 @@ class AddSongModal extends React.Component {
         );
     }
 
-    handleUsernameChanged(e) {
-        this.props.onChangeUsername(e.target.value);
+    handleDataChange(e) {
+        if(e.target.name === "username"){
+            this.props.onChangeUsername(e.target.value);            
+        }
+        if(e.target.name === "artist"){
+            this.props.onChangeArtist(e.target.value);            
+        }
+        if(e.target.name === "songName"){
+            this.props.onChangeSongName(e.target.value);            
+        }
     }
     
-    handleArtistChanged(e) {
-        this.props.onChangeArtist(e.target.value);
-    }
-
-    handleSongNameChanged(e) {
-        this.props.onChangeSongName(e.target.value);
-    }
-
-
 }
 
 

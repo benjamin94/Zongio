@@ -47,9 +47,9 @@ export default class MainPage extends React.Component{
 
         //Modal State
         modalIsOpen: false,
-        modalUsername: null,
-        modalArtist: null,
-        modalSongName: null,
+        modalUsername: "",
+        modalArtist: "",
+        modalSongName: "",
         
     };
 
@@ -118,6 +118,7 @@ export default class MainPage extends React.Component{
               {
                   id: this.state.modalId,
                   username: this.state.modalUsername,
+                  artist: this.state.modalArtist,
                   songName: this.state.modalSongName,
               }
           ],
@@ -136,9 +137,10 @@ export default class MainPage extends React.Component{
 
   modalReset(){
     this.setState({
-        modalId: null,
-        modalUsername: null,
-        modalSongName: null,
+        modalId: "",
+        modalUsername: "",
+        modalArtist: "",
+        modalSongName: "",
       })
 }
 
