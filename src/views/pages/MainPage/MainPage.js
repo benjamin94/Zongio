@@ -47,19 +47,14 @@ export default class MainPage extends React.Component{
 
         //Modal State
         modalIsOpen: false,
-        modalUsername: "",
-        modalArtist: "",
-        modalSongName: "",
         
     };
 
-    //Modal Handlers
-    this.handleChangeUsername = this.handleChangeUsername.bind(this);
-    this.handleChangeSongName = this.handleChangeSongName.bind(this);
-    this.handleChangeArtist = this.handleChangeArtist.bind(this);    
-    this.handleModalCancel = this.handleModalCancel.bind(this);
+    //Modal Handlers   
     this.handleModalConfirm = this.handleModalConfirm.bind(this); 
-    this.modalReset = this.modalReset.bind(this);
+    this.modalOpen = this.modalOpen.bind(this); 
+    this.modalClose = this.modalClose.bind(this); 
+    
     
   }
 
@@ -76,16 +71,8 @@ export default class MainPage extends React.Component{
 
             <AddSongModal 
                 isOpen={this.state.modalIsOpen}
-                onChangeId={this.handleChangeId}
-                onChangeUsername={this.handleChangeUsername}
-                onChangeSongName={this.handleChangeSongName}
-                onChangeArtist={this.handleChangeArtist}
-                id={this.state.modalId}
-                username={this.state.modalUsername}
-                songName={this.state.modalSongName}
-                artist={this.state.modalArtist}
-                onCancel={this.handleModalCancel}
                 onConfirm={this.handleModalConfirm}
+                onCancel={this.modalClose}
                 />
 
             <a className="button is-primary is-outlined" onClick={() => this.modalOpen()}>Click Me</a>
@@ -94,54 +81,27 @@ export default class MainPage extends React.Component{
         );
     }
 
-  handleChangeUsername(username) {
-      this.setState({modalUsername: username});
-  }
-
-  handleChangeSongName(songName) {
-      this.setState({modalSongName: songName});
-  }
-
-  handleChangeArtist(artist) {
-    this.setState({modalArtist: artist});
-  }
-
-  handleModalCancel() {
-      this.setState({ modalIsOpen: false });
-      this.modalReset();
-  }
-
-  handleModalConfirm() {
+  handleModalConfirm(song) {
       this.setState({
           data: [
               ...this.state.data,
               {
-                  id: this.state.modalId,
-                  username: this.state.modalUsername,
-                  artist: this.state.modalArtist,
-                  songName: this.state.modalSongName,
+                  id: song.id,
+                  username: song.username,
+                  artist: song.artist,
+                  songName: song.songName,
               }
           ],
           modalIsOpen: false,
       });
-      this.modalReset();
   }
 
   modalOpen() {
-      this.setState(
-          {
-              modalIsOpen: !this.state.modalIsOpen,
-          }
-      )
+      this.setState({modalIsOpen: true});
   }
 
-  modalReset(){
-    this.setState({
-        modalId: "",
-        modalUsername: "",
-        modalArtist: "",
-        modalSongName: "",
-      })
+  modalClose() {
+    this.setState({modalIsOpen: false});
 }
 
 } 
