@@ -4,7 +4,6 @@ import {
     BrowserRouter as Router ,
     Route,
     Link, } from 'react-router-dom';
-import './index.css';
 import Home from './views/pages/MainPage/Home';
 import MainPage from './views/pages/MainPage/MainPage';
 

@@ -21,7 +21,7 @@ const routes = [
         exact: true
     },
     {
-        path: "/contribute",
+        path: "/contribute/:id?",
         component: Contribute,
         exact: true
     },
@@ -29,7 +29,7 @@ const routes = [
         path: "/about",
         component: About,
         exact: true
-    }
+    },
 ];
 
 export default routes;

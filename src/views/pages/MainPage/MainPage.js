@@ -7,7 +7,6 @@ import {
 
 import AddSongModal from "../../components/AddSongModal"
 import SongTable from "../../components/SongTable"
-
 import dummyData from "../../../config/dummyData"
 
 export default class MainPage extends React.Component{
@@ -49,7 +48,7 @@ export default class MainPage extends React.Component{
         modalIsOpen: false,
         modalUsername: null,
         modalSongName: null,
-
+        
     };
 
     //Modal Handlers
@@ -74,7 +73,9 @@ export default class MainPage extends React.Component{
                 />
 
             <SongTable
-                data={this.state.data}/>
+                data={this.state.data}
+                history={this.props.history}
+                />
 
             <AddSongModal 
                 isOpen={this.state.modalIsOpen}
@@ -100,14 +101,6 @@ export default class MainPage extends React.Component{
 
   handleChangeSongName(songName) {
       this.setState({modalSongName: songName});
-  }
-
-  modalReset(){
-      this.setState({
-          modalId: null,
-          modalUsername: null,
-          modalSongName: null,
-        })
   }
 
   handleModalCancel() {
@@ -137,4 +130,14 @@ export default class MainPage extends React.Component{
           }
       )
   }
+
+  modalReset(){
+    this.setState({
+        modalId: null,
+        modalUsername: null,
+        modalSongName: null,
+      })
+}
+
 } 
+
