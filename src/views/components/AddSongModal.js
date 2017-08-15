@@ -1,5 +1,10 @@
 import React from 'react';
 
+const hasGetUserMedia = !!(navigator.getUserMedia || 
+    navigator.webkitGetUserMedia ||
+    navigator.mozGetUserMedia ||
+    navigator.msGetUserMedia);
+
 class AddSongModal extends React.Component {
 
     constructor(props){
@@ -10,8 +15,11 @@ class AddSongModal extends React.Component {
                 username: "",
                 artist: "",
                 songName: ""
-            }
-            
+            },
+            hasGetUserMedia: !!(navigator.getUserMedia || 
+                navigator.webkitGetUserMedia ||
+                navigator.mozGetUserMedia ||
+                navigator.msGetUserMedia),
         }
 
         //methodes declaration here
@@ -19,7 +27,6 @@ class AddSongModal extends React.Component {
         this.confirm = this.confirm.bind(this);        
         this.cancel = this.cancel.bind(this);
         this.reset = this.reset.bind(this);
-        
         
     }
 
