@@ -1,4 +1,5 @@
 import React from 'react';
+import * as firebase from 'firebase';
 
 export default class Contribute extends React.Component{
 
@@ -10,16 +11,25 @@ export default class Contribute extends React.Component{
         }
     }
 
+    componentDidMount(){
+
+    }
+
     render(){
+        //firebase
+        const databaseRef = firebase.database().ref().child('data');
+        const speedRef = databaseRef.child('speed');
+        speedRef.set(25);
 
         const song = this.props.location.state.song;
 
+
+        
         return(
             <div>
                 <h1>the name of the song is: {song.songName}</h1>
                 <h2>artist: {song.artist}</h2>
                 <h2>made by user: {song.username}</h2>
-
             </div>
         );
 
