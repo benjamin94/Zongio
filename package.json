@@ -10,7 +10,8 @@
     "react-fontawesome": "^1.6.1",
     "react-router-dom": "^4.1.2",
     "react-scripts": "1.0.10",
-    "react-table": "^6.5.3"
+    "react-table": "^6.5.3",
+    "recordrtc": "^5.4.2"
   },
   "scripts": {
     "start": "react-scripts start",
