@@ -26,6 +26,7 @@ export default class Contribute extends React.Component{
 
         this.captureUserMedia = this.captureUserMedia.bind(this);
         this.startRecord = this.startRecord.bind(this);    
+        this.stopRecord = this.stopRecord.bind(this);            
         this.getChurrisBlob = this.getChurrisBlob.bind(this);    
         
 
@@ -107,6 +108,8 @@ export default class Contribute extends React.Component{
     this.state.recordVideo.stopRecording(() => {
 
       const blob = this.state.recordVideo.blob;
+      const song = this.props.location.state.song;      
+      const songId = song.id;
 
       let params = {
         type: "video/webm",
@@ -115,9 +118,10 @@ export default class Contribute extends React.Component{
       };
       this.setState({ uploading: true });
 
-      var storage = firebase.storage().ref().child("/churris");
-
-      storage.put(blob).then(function(snapshot) {
+      var storage = firebase.storage().ref()
+      var songIdStorage = storage.child(`/songs/${songId}/1`);
+      
+      songIdStorage.put(blob).then(function(snapshot) {
         console.log('Uploaded a blob or file!');
       });
       
