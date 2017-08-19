@@ -21,21 +21,20 @@ export default class Contribute extends React.Component{
             recordVideo: null,
             src: null,
             uploadSuccess: null,
-            uploading: false
+            uploading: false,
+            downloadedBlob: null,
         };
 
         this.captureUserMedia = this.captureUserMedia.bind(this);
         this.startRecord = this.startRecord.bind(this);    
         this.stopRecord = this.stopRecord.bind(this);            
-        this.getChurrisBlob = this.getChurrisBlob.bind(this);    
+        this.getFirstBlob = this.getFirstBlob.bind(this);    
         
 
     }
 
     render(){
-      
-      this.getChurrisBlob();
-      
+            
       const song = this.props.location.state.song;
       
         return(
@@ -51,6 +50,8 @@ export default class Contribute extends React.Component{
                 {//this.state.recordVideo ? this.renderVideo() : null
                 }
 
+                {this.state.downloadedBlob ? this.renderDownloadedVideo() : null}
+
             </div>
         );
 
@@ -58,6 +59,22 @@ export default class Contribute extends React.Component{
 
     //{this.state.uploading ? this.renderVideo() : null}
 
+
+    renderDownloadedVideo() {
+
+      var blob = this.state.downloadedBlob;
+
+      return (
+        <video
+          autoPlay
+          controls
+          preload="metadata"
+          src={blob}
+        >
+          Your browser does not support the video element
+        </video>
+      );
+    }
 
   renderVideo() {
     
@@ -68,7 +85,7 @@ export default class Contribute extends React.Component{
         autoPlay
         controls
         preload="metadata"
-        src={this.state.recordVideo.toURL()}
+        src={blob.toURL()}
       >
         Your browser does not support the video element
       </video>
@@ -76,6 +93,9 @@ export default class Contribute extends React.Component{
   }
 
   componentDidMount() {
+
+    this.getFirstBlob();
+    
     if (!hasGetUserMedia) {
       alert(
         "Your browser cannot stream from your webcam. Please switch to Chrome or Firefox."
@@ -95,7 +115,9 @@ export default class Contribute extends React.Component{
 
   startRecord() {
     this.captureUserMedia(stream => {
-      this.state.recordVideo = RecordRTC(stream, { type: "video" });
+      this.setState({
+        recordVideo: RecordRTC(stream, { type: "video" }),
+      })
       this.state.recordVideo.startRecording();
     });
 
@@ -121,35 +143,37 @@ export default class Contribute extends React.Component{
       var storage = firebase.storage().ref()
       var songIdStorage = storage.child(`/songs/${songId}/1`);
       
-      songIdStorage.put(blob).then(function(snapshot) {
+      songIdStorage.put(blob).then((snapshot) => {
         console.log('Uploaded a blob or file!');
       });
       
     });
   } 
 
-  getChurrisBlob(){
+  getFirstBlob(){
 
-    console.log("starting to get blob" + this.state.blob);
+    const song = this.props.location.state.song;      
+    const songId = song.id;
+
+    console.log("starting to get blob");
     
-    var storageRef = firebase.storage().ref();
-    
-    storageRef.child("/churris").getDownloadURL().then(function(url) {
+    var storage = firebase.storage().ref()
+    var songIdStorage = storage.child(`/songs/${songId}/1`);
+
+    songIdStorage.getDownloadURL().then((url) => {
       // `url` is the download URL for 'images/stars.jpg'
     
       // This can be downloaded directly:
       var xhr = new XMLHttpRequest();
       xhr.responseType = 'blob';
-      xhr.onload = function(event) {
+      xhr.onload = (event) => {
         var blob = xhr.response;
+        this.setState({downloadedBlob: blob});
         console.log("aqui toy" + blob);
       };
       xhr.open('GET', url);
       xhr.send();
     
-      // Or inserted into an <img> element:
-      var img = document.getElementById('myimg');
-      img.src = url;
     }).catch(function(error) {
       // Handle any errors
     });
