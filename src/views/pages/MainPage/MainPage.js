@@ -1,8 +1,10 @@
 import React from 'react';
 
-import AddSongModal from "../../components/AddSongModal"
-import SongTable from "../../components/SongTable"
-import dummyData from "../../../config/dummyData"
+import AddSongModal from "../../components/AddSongModal";
+import SongTable from "../../components/SongTable";
+import dummyData from "../../../config/dummyData";
+
+import styles from "./styles.css";
 
 import * as firebase from 'firebase';
 
@@ -31,7 +33,6 @@ export default class MainPage extends React.Component {
         this.dbSongDeleted = this.dbSongDeleted.bind(this);
         this.deSongUpdated = this.deSongUpdated.bind(this);
         this.firebasePushSong = this.firebasePushSong.bind(this);
-        
 
     }
 
@@ -82,8 +83,7 @@ export default class MainPage extends React.Component {
 
         return (
             <div>
-                <h1>Look for your fav song!</h1>
-                <p>if its not there , be the one who creates it</p>
+                <h1 className="title has-text-centered">Music with friends, family and the world.</h1>
 
                 <SongTable
                     data={this.state.data}

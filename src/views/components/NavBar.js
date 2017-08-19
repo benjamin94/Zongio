@@ -15,16 +15,33 @@ class NavBar extends React.Component{
     render(){
         return(
             <div>
-                <nav className="nav has-shadow">
-                    <div className="nav-left">
+                <nav className="navbar has-shadow background-main">
+                    <div className="navbar-brand">
                         <NavLink className="nav-item" to="/">
-                            I'm so cool
+                        Zongio
                         </NavLink>
+
+                        <div className="navbar-burger">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
                     </div>
                 </nav>
             </div>
         );
     }
 }
+
+
+
+// <nav className="nav has-shadow">
+// <div className="nav-left">
+//     <NavLink className="nav-item" to="/">
+//         I'm so cool
+//     </NavLink>
+// </div>
+// </nav>
+
 
 export default NavBar;

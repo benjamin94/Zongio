@@ -5,6 +5,8 @@ import routes from "../config/routes"
 import NavBar from "./components/NavBar";
 
 import 'bulma/css/bulma.css';
+import '../css/app.css';
+
 
 const App = () => (
     <div>
@@ -18,7 +20,9 @@ const App = () => (
 
         <script src="https://www.gstatic.com/firebasejs/4.2.0/firebase.js"></script>
         
-        { routes.map((route) => <Route key={route.path} { ...route } />) }
+        <div className="app-body">
+            { routes.map((route) => <Route key={route.path} { ...route } />) }
+        </div>
 
         <div className="credits has-text-centered has-text-white">
             &copy;2017 Brain Leader Company Ltd. All rights reserved.
