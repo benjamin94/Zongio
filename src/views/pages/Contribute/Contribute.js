@@ -19,23 +19,46 @@ export default class Contribute extends React.Component{
 
         this.state = {
             recordVideo: null,
+            downloadedVideo: null,
             src: null,
             uploadSuccess: null,
             uploading: false,
-            downloadedBlob: null,
         };
 
         this.captureUserMedia = this.captureUserMedia.bind(this);
         this.startRecord = this.startRecord.bind(this);    
         this.stopRecord = this.stopRecord.bind(this);            
         this.getFirstBlob = this.getFirstBlob.bind(this);    
+        this.renderVideo = this.renderVideo.bind(this);
         
 
     }
 
+    componentDidMount() {
+      
+          this.getFirstBlob();
+          
+          if (!hasGetUserMedia) {
+            alert(
+              "Your browser cannot stream from your webcam. Please switch to Chrome or Firefox."
+            );
+            return;
+          }
+
+          this.captureUserMedia(stream => {
+            this.setState({
+              downloadedVideo: RecordRTC(stream, { type: "video" }),
+            })
+          });
+
+          //this.requestUserMedia();
+        }
+
     render(){
             
       const song = this.props.location.state.song;
+      const downloadedVideo = this.state.downloadedVideo;
+      const localVideo = this.state.recordVideo;
       
         return(
             <div>
@@ -44,65 +67,39 @@ export default class Contribute extends React.Component{
                 <h2 className="subtitle">cover by: {song.username}</h2>
               </div>
 
-              <button onClick={this.startRecord}>start recording</button>
+              <div className="has-text-centered">
 
-
-                {//this.state.recordVideo ? this.renderVideo() : null
+                {
+                  this.state.uploadSuccess ? this.renderVideo(downloadedVideo) : null
                 }
 
-                {this.state.downloadedBlob ? this.renderDownloadedVideo() : null}
+                {
+                  this.state.uploading ? this.renderVideo(localVideo) : null
+                }
+
+                <br/>
+
+                <button className="button" onClick={this.startRecord}>contribute</button>
+
+                </div>
 
             </div>
         );
 
     }
 
-    //{this.state.uploading ? this.renderVideo() : null}
-
-
-    renderDownloadedVideo() {
-
-      var blob = this.state.downloadedBlob;
-
-      return (
+    renderVideo(mediaElement) {
+    
+    return (
         <video
           autoPlay
           controls
           preload="metadata"
-          src={blob}
+          src={mediaElement.toURL()}
         >
           Your browser does not support the video element
-        </video>
-      );
-    }
-
-  renderVideo() {
-    
-    var blob = this.state.recordVideo.blob;
-
-    return (
-      <video
-        autoPlay
-        controls
-        preload="metadata"
-        src={blob.toURL()}
-      >
-        Your browser does not support the video element
       </video>
     );
-  }
-
-  componentDidMount() {
-
-    this.getFirstBlob();
-    
-    if (!hasGetUserMedia) {
-      alert(
-        "Your browser cannot stream from your webcam. Please switch to Chrome or Firefox."
-      );
-      return;
-    }
-    //this.requestUserMedia();
   }
 
   requestUserMedia() {
@@ -138,6 +135,7 @@ export default class Contribute extends React.Component{
         data: blob,
         id: Math.floor(Math.random() * 90000) + 10000
       };
+      
       this.setState({ uploading: true });
 
       var storage = firebase.storage().ref()
@@ -145,7 +143,7 @@ export default class Contribute extends React.Component{
       
       songIdStorage.put(blob).then((snapshot) => {
         console.log('Uploaded a blob or file!');
-      });
+      });      
       
     });
   } 
@@ -161,14 +159,22 @@ export default class Contribute extends React.Component{
     var songIdStorage = storage.child(`/songs/${songId}/1`);
 
     songIdStorage.getDownloadURL().then((url) => {
-      // `url` is the download URL for 'images/stars.jpg'
+      console.log("download URL: " + url);
     
       // This can be downloaded directly:
       var xhr = new XMLHttpRequest();
       xhr.responseType = 'blob';
       xhr.onload = (event) => {
         var blob = xhr.response;
-        this.setState({downloadedBlob: blob});
+
+        const dl = this.state.downloadedVideo;
+        dl.blob = blob;
+
+        this.setState({
+          downloadedVideo: dl,
+          uploadSuccess: true,
+        });
+
         console.log("aqui toy" + blob);
       };
       xhr.open('GET', url);
